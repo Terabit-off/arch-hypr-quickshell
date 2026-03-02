@@ -1,0 +1,47 @@
+//#pragma Singleton
+
+import QtQuick
+
+QtObject {
+
+    // Right side
+    readonly property color barBackground: '#bd202020'//'#cf595959'
+    readonly property color foreground: '#c9c9c9'
+    readonly property real trayIconColor: 0.5415 
+    readonly property real trayIconSaturation: 0
+
+    // Left side --- WorkSpace
+    readonly property color wsFocusBackground: '#c9c9c9'
+    readonly property color wsNotFocusBackground: 'transparent'
+    readonly property color wsUrgentBackground: '#6d8b3f3f'
+
+    readonly property color wsUrgentForeground: '#c9c9c9'
+    readonly property color wsFocusForeground: '#222e34'
+    readonly property color wsNotFocusForeground: '#c9c9c9'
+
+    // Center --- Music
+
+    //Panel
+    readonly property color panelBackground: 'transparent'//'#bd202020'
+    readonly property color separatorColor: 'transparent'//'#bd939393'
+    readonly property color moduleBorderColor: '#bd939393'
+    readonly property color moduleBackgroundColor: '#202020'
+    readonly property real moduleBorderRadius: 15
+    readonly property real panelBorderRadius: 15
+
+}
+
+    //ROSE WALLPAPER
+
+    // readonly property color barBackground: '#7d595959'
+    // readonly property color foreground: '#7DB0C1'
+    // readonly property real trayIconColor: 0.5415 
+    //readonly property real trayIconSaturation: 1
+
+    // readonly property color wsFocusBackground: '#7DB0C1'
+    // readonly property color wsNotFocusBackground: 'transparent'
+    // readonly property color wsUrgentBackground: 'transparent'
+
+    // readonly property color wsUrgentForeground: 'transparent'
+    // readonly property color wsFocusForeground: '#222e34'
+    // readonly property color wsNotFocusForeground: '#7DB0C1'

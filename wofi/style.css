@@ -1,0 +1,62 @@
+/* Основное окно */
+window {
+    margin: 0px;
+    background-color: rgba(69, 69, 69, 0.9); /* Основной фон */
+    border-radius: 15px;
+    font-family: "JetBrainsMono Nerd Font", monospace;
+    font-size: 14px;
+}
+
+/* Поле ввода */
+#input {
+    margin: 5px;
+    border: none;
+    color: #ede2d7;
+    background-color: rgba(69, 69, 69, 0.9);
+    border-radius: 10px;
+    padding: 10px;
+}
+
+#input:focus {
+    border: none;
+}
+
+/* Внутренний контейнер */
+#inner-box {
+    margin: 5px;
+    border: none;
+    background-color: transparent;
+}
+
+/* Список элементов */
+#outer-box {
+    margin: 5px;
+    border: none;
+    background-color: transparent;
+}
+
+/* Элементы прокрутки */
+#scroll {
+    margin: 0px;
+    border: none;
+}
+
+/* Текст внутри элементов */
+#text {
+    margin: 5px;
+    border: none;
+    color: #cdd6f4;
+}
+
+/* Выбранный (активный) элемент */
+#entry:selected {
+    background-color: #ede2d7; /* Акцентный цвет (фиолетовый) */
+    border-radius: 5px;
+    outline: none;
+}
+
+/* Текст выбранного элемента */
+#entry:selected #text {
+    color: #1e1e2e; /* Темный текст на светлом фоне */
+    font-weight: bold;
+}
