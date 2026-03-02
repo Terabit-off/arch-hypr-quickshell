@@ -7,6 +7,7 @@ QtObject {
     // Right side
     readonly property color barBackground: '#bd202020'//'#cf595959'
     readonly property color foreground: '#c9c9c9'
+    readonly property color barBorderColor: '#bd939393'
     readonly property real trayIconColor: 0.5415 
     readonly property real trayIconSaturation: 0
 
@@ -21,6 +22,9 @@ QtObject {
 
     // Center --- Music
 
+
+
+
     //Panel
     readonly property color panelBackground: 'transparent'//'#bd202020'
     readonly property color separatorColor: 'transparent'//'#bd939393'
@@ -29,7 +33,15 @@ QtObject {
     readonly property real moduleBorderRadius: 15
     readonly property real panelBorderRadius: 15
 
+    // sliders
+    readonly property color sliderBackgroundColor: '#525252'
+    readonly property color sliderBackgroundFillColor: '#c9c9c9'
+    readonly property color sliderHandlerColor: '#f0f0f0'
+    readonly property color sliderHandlerBorderColor: '#bd939393'
+    readonly property real sliderHandlerBorderRadius: 2
 }
+
+
 
     //ROSE WALLPAPER
 

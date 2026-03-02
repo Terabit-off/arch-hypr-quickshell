@@ -11,6 +11,7 @@ import Quickshell.Services.SystemTray
 import QtQuick.Controls
 
 
+
 PanelWindow {
     id: rootPanel
     anchors {
@@ -25,6 +26,8 @@ PanelWindow {
     }
     implicitHeight: 30
 
+    property alias brightnessUpdateProcess: brightnessProcess
+    
     //Colors.qml
     Colors {
         id: colors
@@ -38,6 +41,7 @@ PanelWindow {
     Rectangle {
         anchors.fill: parent
         color: colors.barBackground
+        border.color: colors.barBorderColor
         radius: 25
         RowLayout {
             anchors.fill: parent
@@ -278,6 +282,7 @@ PanelWindow {
                         }
 
                         Text {
+                            
                             anchors.centerIn: parent
                             text: "󰃠  " + Math.round(brightness.currentBrightness / 64507 * 100)
                             font.bold: true
@@ -411,25 +416,6 @@ PanelWindow {
                         }
                     }
                 }
-            }
-        }
-    } 
-    PopupWindow {
-        id: testPopup
-        anchor.window: rootPanel
-        anchor.rect.x: parentWindow.width / 2 - width / 2
-        anchor.rect.y: parentWindow.height
-        width: 500
-        height: 500
-        visible: false
-
-        HyprlandFocusGrab {
-            windows: [testPopup]
-            active: true
-
-            onCleared: {
-                testPopup.visible = false
-                console.log("close")
             }
         }
     }

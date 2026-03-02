@@ -1,59 +1,48 @@
 import QtQuick
 import Quickshell
 import Quickshell.Io
-import Quickshell.Wayland
 import QtQuick.Layouts
 import Qt5Compat.GraphicalEffects
 import QtQuick.Controls
+import Quickshell.Hyprland
 
 import "./panelWidgets"
 
+// PANEL
 PanelWindow {
-    id: popupManager
-
-    WlrLayershell.layer: WlrLayershell.Overlay
-    visible: false 
-    
-    anchors {
-        top: true
-        bottom: true
-        left: true
-        right: true
-    }
+    id: myContent
+    aboveWindows: true
+    visible: false
+    exclusiveZone: 0
     implicitWidth: 400
     Colors {
         id: colors
     }
-    //color: "transparent"
-
+    anchors {
+        right: true
+        top: true
+        bottom: true
+    }
+    margins {
+        top: 25
+        right: 15
+        bottom: 25
+    }
     function updateTimeDate(){
         timeDateText.text = Qt.formatDateTime(new Date(), "HH:mm      dd:MM:yyyy-dddd");
     }
-    // PANEL
+    color: 'transparent'
     Rectangle {
-        id: myContent
-        width: 400
-        x: -50
-        anchors {
-    
-            right: parent.right
-            top: parent.top
-            bottom: parent.bottom
-            rightMargin: 25
-            topMargin: 15
-            bottomMargin: 15
-        }
-        //focus: true
+        anchors.fill: parent
         color: colors.panelBackground
-        //border.color: '#ffffff'
         radius: colors.panelBorderRadius
-        
         ColumnLayout {
             anchors.fill: parent
             spacing: 5
 
             // CALENDAR
             Rectangle {
+                id: timeDateModule
                 Layout.fillWidth: true
                 Layout.fillHeight: true
                 Layout.maximumHeight: 40
@@ -101,6 +90,7 @@ PanelWindow {
             }
             // MUSIC
             Rectangle {
+                id: musicModule
                 Layout.fillWidth: true
                 Layout.fillHeight: true
                 Layout.maximumHeight: 150
@@ -124,7 +114,7 @@ PanelWindow {
             }
             // WEATHER
             WhetherPanelWidget {
-                id: whetherPanelWidget
+                id: whetherPanelModule
             }
             // SEPARATOR
             Rectangle {
@@ -137,6 +127,7 @@ PanelWindow {
             }
             // SYSTEM MONITORING
             Rectangle {
+                id: systemMonitoringModule
                 Layout.fillWidth: true
                 Layout.fillHeight: true
                 Layout.maximumHeight: 70
@@ -157,9 +148,9 @@ PanelWindow {
                 Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
                 color: colors.separatorColor
             }
-            // WI-FI and BLUETOOTH
+            // WI-FI, BLUETOOTH, VOLUMES
             Rectangle {
-                id: wifiBluetoothControl
+                id: deviceControlsModule
                 Layout.fillWidth: true
                 Layout.fillHeight: true
                 Layout.alignment: Qt.AlignHCenter
@@ -172,82 +163,41 @@ PanelWindow {
                     anchors.fill: parent
                     anchors.centerIn: parent
 
+                    BrightnessProcess { }
+
+                    AudioVolumeProcess { }
+                    
+                    // WI-FI, BLUETOOTH
                     RowLayout {
-                        Layout.fillWidth: true
-                        Layout.fillHeight: true
-                        Layout.minimumHeight: 30
-                        Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
 
-                        Rectangle {
-                            Layout.fillWidth: true
-                            Layout.fillHeight: true
-                            Layout.maximumHeight: 30
-                            Layout.maximumWidth: 50
-                            Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
-                            color: '#ff0000'
-                            MouseArea {
-                                anchors.fill: parent
-                                onClicked: {
-                                    wifiBluetoothControl.Layout.maximumHeight === 250 ? 
-                                        wifiBluetoothControl.Layout.maximumHeight = 70 : wifiBluetoothControl.Layout.maximumHeight = 250
-                                    
-                                    menus.visible = !menus.visible
-                                }
-                            }
-                        }
-
-                        Rectangle {
-                            Layout.fillWidth: true
-                            Layout.fillHeight: true
-                            Layout.maximumHeight: 30
-                            Layout.maximumWidth: 50
-                            Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
-                            color: '#0040ff'
-                            MouseArea {
-                                anchors.fill: parent
-                                onClicked: {
-                                    wifiBluetoothControl.Layout.maximumHeight === 250 ? 
-                                        wifiBluetoothControl.Layout.maximumHeight = 70 : wifiBluetoothControl.Layout.maximumHeight = 250
-                                    
-                                    menus.visible = !menus.visible
-                                }
-                            }
-                        }
-                    }
-                    Rectangle {
-                        id: menus
-                        Layout.fillWidth: true
-                        Layout.fillHeight: true
-                        visible: false
                     }
                 }
-                //BluetoothPanel { }
             }
 
-            // NOTIFICATIONS
+            // NOTIFICATIONS ---- IN FUTURE
             Rectangle {
+                id: notificationsModule
                 Layout.fillWidth: true
                 Layout.fillHeight: true
-                //Layout.maximumHeight: 70
-                //Layout.maximumWidth: 250
                 Layout.alignment: Qt.AlignHCenter
                 color: 'transparent'
-                //border.color: colors.moduleBorderColor
+                border.color: colors.moduleBorderColor
                 radius: colors.moduleBorderRadius
             }
         }
     }
 
-    // HyprlandFocusGrab {
-    //     windows: [testPopup]
-    //     active: true
+    // CLOSE PANEL
+    HyprlandFocusGrab {
+        windows: [myContent]
+        active: myContent.visible
 
-    //     onCleared: {
-    //         testPopup.visible = false
-    //         console.log("close")
-    //     }
-    // }
+        onCleared: {
+            myContent.visible = false
+        }
+    }
 
+    // WHETHER TIMER
     Timer {
         id: hourlyTimer
         running: true
@@ -256,7 +206,7 @@ PanelWindow {
 
         onTriggered: {
             // 1. Выполняем обновление погоды
-            whetherPanelWidget.weatherProcesss.running = true;
+            whetherPanelModule.weatherProcesss.running = true;
 
             // 2. Рассчитываем время до следующего часа
             var now = new Date();
@@ -276,3 +226,5 @@ PanelWindow {
         }
     }
 }
+
+
