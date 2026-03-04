@@ -15,39 +15,51 @@ RowLayout {
     Rectangle {
         Layout.fillWidth: true
         Layout.fillHeight: true
-        //Layout.maximumHeight: 150
-        //Layout.maximumWidth: 150
         color: "transparent"
+        Layout.maximumWidth: 170
 
-        Rectangle {
-            id: shadowRec
-            anchors.fill: parent
-            anchors.rightMargin: 0
-            radius: colors.moduleBorderRadius - 7
-            anchors.margins: 10
-            color: '#ffffff'
-        }
-
-        AnimatedImage {
-            id: catGif
+        Image {
+            id: musicCover
+            visible: true
             anchors.centerIn: parent
             anchors.margins: 10
-            anchors.fill: parent
-            source: "bongo-cat.gif"
-            fillMode: Image.PreserveAspectFit
-            paused: !MusicSingleton.isPlaying
-
+            width: 130
+            height: 130
+            fillMode: Image.PreserveAspectCrop//PreserveAspectFit
+            source: {
+                if(MusicSingleton.active && MusicSingleton.active.metadata["mpris:artUrl"]) {
+                    return MusicSingleton.active.metadata["mpris:artUrl"]
+                }
+                else {
+                    return "bongo-cat.gif"
+                }
+            }
             layer.enabled: true
             layer.effect: OpacityMask {
                 maskSource: Rectangle {
-                    width: catGif.width
-                    height: catGif.height
-                    radius: colors.moduleBorderRadius - 7
+                    width: musicCover.width
+                    height: musicCover.height
+                    radius: musicCover.height / 2
                 }
+            }
+            transform: Rotation {
+                id: rotation
+                origin.x: musicCover.width / 2
+                origin.y: musicCover.height / 2
+                angle: 0
+            }
+            NumberAnimation {
+                target: rotation
+                property: "angle"
+                from: rotation.angle
+                to: 360
+                duration: 15000
+                loops: Animation.Infinite
+                running: MusicSingleton.isPlaying
             }
         }
     }
-    // CONTROLS
+    // CONTROLS AND TRACK INFO
     Rectangle {
         Layout.fillWidth: true
         Layout.fillHeight: true
@@ -57,40 +69,53 @@ RowLayout {
             anchors {
                 fill: parent
                 topMargin: 15
+                bottomMargin: 15
             }
-
-            //TRACK
+            //TRACK NAME
             Text {
                 id: musicNameText
                 Layout.fillWidth: true
-                Layout.maximumHeight: 10
+                Layout.maximumHeight: 25
                 Layout.maximumWidth: 160
                 Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
-                text: MusicSingleton.active ? MusicSingleton.active.metadata["xesam:title"] : "Пусто"
+                text: MusicSingleton.active ? MusicSingleton.active.metadata["xesam:title"] : "Unknown"
                 horizontalAlignment: Text.AlignHCenter
-                color: '#ffffff'
-                font.pixelSize: 18
+                color: colors.foreground
+                font.pixelSize: 16
                 elide: Text.ElideRight
                 font.bold: true
+                MouseArea {
+                    anchors.fill: parent
+                    hoverEnabled: true
+                    cursorShape: Qt.PointingHandCursor
+                    
+                    onClicked: {
+                        if (MusicSingleton.active && MusicSingleton.active.metadata["xesam:title"]) {
+                            Qt.openUrlExternally(MusicSingleton.active.metadata["xesam:url"])
+                        }
+                    }
+                }
             }
             //ARTIST
             Text {
                 id: musicArtistText
                 Layout.fillWidth: true
                 Layout.fillHeight: true
-                Layout.maximumHeight: 25
+                Layout.maximumHeight: 10
                 Layout.maximumWidth: 160
                 Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
-                text: MusicSingleton.active ? MusicSingleton.active.trackArtist : "Пусто"
+                text: MusicSingleton.active ? MusicSingleton.active.trackArtist : "Unknown"
                 horizontalAlignment: Text.AlignHCenter
-                color: "#ffffff"
-                font.pixelSize: 12
+                color: colors.foreground
+                font.pixelSize: 10
                 elide: Text.ElideRight
                 font.bold: true
             }
+            
             //Controls
             RowLayout {
                 Layout.alignment: Qt.AlignHCenter
+                //Layout.maximumHeight: 15
                 spacing: 10
                 Text {
                     Layout.alignment: Qt.AlignHCenter
@@ -98,7 +123,7 @@ RowLayout {
                     Layout.maximumWidth: 35
                     horizontalAlignment: Text.AlignHCenter
                     height: 30
-                    color: '#ffffff'
+                    color: colors.foreground
                     text: "󰒮"
                     font.pixelSize: 30
 
@@ -118,7 +143,7 @@ RowLayout {
                     Layout.maximumWidth: 35
                     horizontalAlignment: Text.AlignHCenter
                     height: 30
-                    color: '#ffffff'
+                    color: colors.foreground
                     text: MusicSingleton.isPlaying ? "󰏤" : "󰐊"
                     font.pixelSize: 30
 
@@ -137,7 +162,7 @@ RowLayout {
                     Layout.maximumWidth: 35
                     horizontalAlignment: Text.AlignHCenter
                     height: 30
-                    color: '#ffffff'
+                    color: colors.foreground
                     text: "󰒭"
                     font.pixelSize: 30
 
@@ -150,6 +175,27 @@ RowLayout {
                         }
                     }
                 }
+            }
+            // SOURCE
+            Text {
+                id: musicSourceText
+                Layout.fillWidth: true
+                Layout.fillHeight: true
+                Layout.maximumHeight: 8
+                Layout.maximumWidth: 160
+                Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+                text: {
+                    let src = MusicSingleton.active ? MusicSingleton.active.metadata["xesam:url"]: ""
+                    if (src === "") return " "
+                    let hostname = new URL(src).hostname
+                    let parts = hostname.replace(/^www\./, "").split(".com")
+                    return parts[0]
+                } 
+                horizontalAlignment: Text.AlignHCenter
+                color: colors.foreground
+                font.pixelSize: 8
+                elide: Text.ElideRight
+                font.bold: true
             }
         }
     }

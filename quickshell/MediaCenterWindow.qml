@@ -18,6 +18,7 @@ PanelWindow {
     Colors {
         id: colors
     }
+
     anchors {
         right: true
         top: true
@@ -29,7 +30,7 @@ PanelWindow {
         bottom: 25
     }
     function updateTimeDate(){
-        timeDateText.text = Qt.formatDateTime(new Date(), "HH:mm      dd:MM:yyyy-dddd");
+        timeDateText.text = Qt.formatDateTime(new Date(), "HH:mm      dd-MM-yyyy      ddd");
     }
     color: 'transparent'
     Rectangle {
@@ -69,7 +70,7 @@ PanelWindow {
                             
                             Text {
                                 id: timeDateText
-                                text: Qt.formatDateTime(new Date(), "HH:mm      dd.MM.yyyy-dddd");
+                                text: Qt.formatDateTime(new Date(), "HH:mm      dd-MM-yyyy      ddd");
                                 anchors.centerIn: parent
                                 font.pixelSize: 22
                                 color: colors.foreground
@@ -148,7 +149,7 @@ PanelWindow {
                 Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
                 color: colors.separatorColor
             }
-            // WI-FI, BLUETOOTH, VOLUMES
+            // SHORTCUTS, VOLUMES
             Rectangle {
                 id: deviceControlsModule
                 Layout.fillWidth: true
@@ -157,20 +158,120 @@ PanelWindow {
                 color: colors.moduleBackgroundColor
                 border.color: colors.moduleBorderColor
                 radius: colors.moduleBorderRadius
-                Layout.maximumHeight: 70
+                Layout.maximumHeight: 160
+
+                Process {
+                    id: appRun
+                    running: false
+                }
+
 
                 ColumnLayout {
                     anchors.fill: parent
                     anchors.centerIn: parent
+                    anchors.bottomMargin: 5
+                    anchors.topMargin: 5
+                    spacing: 5
 
+                    // APPS
+                    RowLayout {
+                        Layout.fillWidth: true
+                        Layout.fillHeight: true
+                        //Layout.maximumHeight: 30
+                        Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+                        spacing: 15
+
+                        Rectangle {
+                            Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+                            width: 46
+                            height: 46
+                            radius: 18
+                            color: colors.buttonOffBackground
+                            border.color: colors.buttonBorderColor
+                            border.width: colors.buttonBorderWidth
+                            Text {
+                                anchors.centerIn: parent
+                                font.pixelSize: 18
+                                text: ""
+                                color: colors.buttonOffTextColor
+                            }
+                            MouseArea {
+                                anchors.fill: parent
+                                cursorShape: Qt.PointingHandCursor
+                                onClicked: {
+                                    appRun.command = ["vscodium"]
+                                    appRun.running = true
+                                }
+                            }
+                        }
+                        Rectangle {
+                            Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+                            width: 46
+                            height: 46
+                            radius: 18
+                            color: colors.buttonOffBackground
+                            border.color: colors.buttonBorderColor
+                            border.width: colors.buttonBorderWidth
+                            Text {
+                                anchors.centerIn: parent
+                                font.pixelSize: 22
+                                text: ""
+                                color: colors.buttonOffTextColor
+                            }
+                            MouseArea {
+                                anchors.fill: parent
+                                cursorShape: Qt.PointingHandCursor
+                                onClicked: {
+                                    appRun.command = ["firefox"]
+                                    appRun.running = true
+                                }
+                            }
+                        }
+                        Rectangle {
+                            Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+                            width: 46
+                            height: 46
+                            radius: 18
+                            color: colors.buttonOffBackground
+                            border.color: colors.buttonBorderColor
+                            border.width: colors.buttonBorderWidth
+                            Text {
+                                anchors.centerIn: parent
+                                font.pixelSize: 20
+                                text: ""
+                                color: colors.buttonOffTextColor
+                            }
+                            MouseArea {
+                                anchors.fill: parent
+                                cursorShape: Qt.PointingHandCursor
+                                onClicked: {
+                                    appRun.command = ["Telegram"]
+                                    appRun.running = true
+                                }
+                            }
+                        }
+                    }
+                    // SEPARATOR
+                    Rectangle {
+                        Layout.fillWidth: true
+                        Layout.fillHeight: true
+                        Layout.maximumHeight: 1
+                        Layout.maximumWidth: 300
+                        Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+                        color: colors.moduleSeparatorColor
+                    }
                     BrightnessProcess { }
-
+                    // SEPARATOR
+                    Rectangle {
+                        Layout.fillWidth: true
+                        Layout.fillHeight: true
+                        Layout.maximumHeight: 1
+                        Layout.maximumWidth: 150
+                        Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+                        color: colors.moduleSeparatorColor
+                    }
                     AudioVolumeProcess { }
                     
-                    // WI-FI, BLUETOOTH
-                    RowLayout {
-
-                    }
                 }
             }
 
@@ -189,7 +290,7 @@ PanelWindow {
 
     // CLOSE PANEL
     HyprlandFocusGrab {
-        windows: [myContent]
+        windows: [myContent, myContent.btPopup]
         active: myContent.visible
 
         onCleared: {

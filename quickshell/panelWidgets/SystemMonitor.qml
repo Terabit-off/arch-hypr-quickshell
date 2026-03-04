@@ -24,7 +24,7 @@ RowLayout {
         Text {
             id: cpuText
             font.pixelSize: 14; font.bold: true
-            color: cpuLoad > 80 ? "#ff4444" : cpuLoad > 60 ? "#ffaa00" : "#ffffff"
+            color: cpuLoad > 80 ? "#ff4444" : cpuLoad > 60 ? "#ffaa00" : colors.foreground
             text: cpuLoad + "%"
             Layout.alignment: Qt.AlignHCenter
         }
@@ -36,6 +36,7 @@ RowLayout {
         Layout.maximumHeight: 20
         Layout.maximumWidth: 1
         Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+        color: colors.moduleSeparatorColor
     }
     // RAM
     ColumnLayout {
@@ -48,15 +49,18 @@ RowLayout {
             Layout.alignment: Qt.AlignHCenter
             font.pixelSize: 14; font.bold: true
             text: ramUsed + "/" + ramTotal + "GB"
-            color: "#ffffff"
+            color: colors.foreground
         }
     }
+
+    //SEPARATOR
     Rectangle {
         Layout.fillWidth: true
         Layout.fillHeight: true
         Layout.maximumHeight: 20
         Layout.maximumWidth: 1
         Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+        color: colors.moduleSeparatorColor
     }
     // TEMP
     ColumnLayout {
@@ -68,7 +72,7 @@ RowLayout {
             id: tempText
             Layout.alignment: Qt.AlignHCenter
             font.pixelSize: 14; font.bold: true
-            color: temp > 80 ? "#ff4444" : temp > 70 ? "#ffaa00" : "#ffffff"
+            color: temp > 80 ? "#ff4444" : temp > 70 ? "#ffaa00" : colors.foreground
             text: temp + "°"
         }
     }

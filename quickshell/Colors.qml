@@ -28,7 +28,8 @@ QtObject {
     //Panel
     readonly property color panelBackground: 'transparent'//'#bd202020'
     readonly property color separatorColor: 'transparent'//'#bd939393'
-    readonly property color moduleBorderColor: '#bd939393'
+    readonly property color moduleSeparatorColor: '#bd939393'
+    readonly property color moduleBorderColor: '#bde6e6e6'
     readonly property color moduleBackgroundColor: '#202020'
     readonly property real moduleBorderRadius: 15
     readonly property real panelBorderRadius: 15
@@ -39,6 +40,15 @@ QtObject {
     readonly property color sliderHandlerColor: '#f0f0f0'
     readonly property color sliderHandlerBorderColor: '#bd939393'
     readonly property real sliderHandlerBorderRadius: 2
+
+    // Buttons
+    readonly property color buttonOffBackground: 'transparent'
+    readonly property color buttonOnBackground: '#ffffff'
+    readonly property color buttonBorderColor: '#bd939393'
+    readonly property real buttonBorderWidth: 2
+
+    readonly property color buttonOnTextColor: '#2c2c2c'
+    readonly property color buttonOffTextColor: '#c9c9c9'
 }
 
 

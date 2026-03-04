@@ -10,7 +10,7 @@ import ".."
 RowLayout {
     Layout.fillWidth: true
     Layout.fillHeight: true
-    Layout.minimumHeight: 30
+    Layout.minimumHeight: 10
     Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
 
     Text {
@@ -48,7 +48,7 @@ RowLayout {
 
         handle: Rectangle {
             x: parent.leftPadding + parent.visualPosition * (parent.availableWidth - width)
-            y: control.topPadding + parent.availableHeight / 2 - height / 2
+            y: parent.topPadding + parent.availableHeight / 2 - height / 2
             implicitWidth: 5
             implicitHeight: 13
             radius: colors.sliderHandlerBorderRadius

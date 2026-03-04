@@ -32,7 +32,7 @@ Rectangle {
     property alias weatherProcesss: whetherProcess
     Process {
         id: whetherProcess
-        command: ["curl", "-s", "https://api.open-meteo.com/v1/forecast?latitude=44.2233&longitude=42.0578&hourly=temperature_2m,weather_code&forecast_days=1"]
+        command: ["curl", "-s", "https://api.open-meteo.com/v1/forecast?latitude=44.2233&longitude=42.0578&hourly=temperature_2m,weather_code&forecast_days=2"]
         running: true
         stdout: StdioCollector {
             onStreamFinished: {
@@ -74,7 +74,7 @@ Rectangle {
                 text: "󰖨"
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
-                color: '#ffffff'
+                color: colors.foreground
                 font.pixelSize: 66
                 font.bold: true
             }
@@ -89,7 +89,7 @@ Rectangle {
                 text: "-- \n --:--"
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
-                color: '#ffffff'
+                color: colors.foreground
                 font.pixelSize: 18
                 font.bold: true
             }
@@ -124,7 +124,7 @@ Rectangle {
             Layout.maximumWidth: 150
             Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
             Layout.topMargin: 10
-            color: colors.separatorColor
+            color: colors.moduleSeparatorColor
         }
         // FUTURE WHETHER
         RowLayout {
@@ -151,7 +151,7 @@ Rectangle {
                             text: "󰖨"
                             horizontalAlignment: Text.AlignHCenter
                             verticalAlignment: Text.AlignVCenter
-                            color: '#ffffff'
+                            color: colors.foreground
                             font.pixelSize: 20
                             font.bold: true
                         }
@@ -164,7 +164,7 @@ Rectangle {
                             text: "--"
                             horizontalAlignment: Text.AlignHCenter
                             verticalAlignment: Text.AlignVCenter
-                            color: '#ffffff'
+                            color: colors.foreground
                             font.pixelSize: 14
                             font.bold: true
                         }
@@ -177,7 +177,7 @@ Rectangle {
                         text: '--:--'
                         horizontalAlignment: Text.AlignHCenter
                         verticalAlignment: Text.AlignVCenter
-                        color: '#ffffff'
+                        color: colors.foreground
                         font.pixelSize: 12
                         font.bold: true
                     }
@@ -190,7 +190,7 @@ Rectangle {
                 Layout.maximumHeight: 20
                 Layout.maximumWidth: 1
                 Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
-                color: colors.separatorColor
+                color: colors.moduleSeparatorColor
             }
             Rectangle {
                 Layout.fillWidth: true
@@ -212,7 +212,7 @@ Rectangle {
                             text: "󰖨"
                             horizontalAlignment: Text.AlignHCenter
                             verticalAlignment: Text.AlignVCenter
-                            color: '#ffffff'
+                            color: colors.foreground
                             font.pixelSize: 20
                             font.bold: true
                         }
@@ -225,7 +225,7 @@ Rectangle {
                             text: "--"
                             horizontalAlignment: Text.AlignHCenter
                             verticalAlignment: Text.AlignVCenter
-                            color: '#ffffff'
+                            color: colors.foreground
                             font.pixelSize: 14
                             font.bold: true
                         }
@@ -238,7 +238,7 @@ Rectangle {
                         text: '--:--'
                         horizontalAlignment: Text.AlignHCenter
                         verticalAlignment: Text.AlignVCenter
-                        color: '#ffffff'
+                        color: colors.foreground
                         font.pixelSize: 12
                         font.bold: true
                     }
@@ -251,7 +251,7 @@ Rectangle {
                 Layout.maximumHeight: 20
                 Layout.maximumWidth: 1
                 Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
-                color: colors.separatorColor
+                color: colors.moduleSeparatorColor
             }
             Rectangle {
                 Layout.fillWidth: true
@@ -273,7 +273,7 @@ Rectangle {
                             text: "󰖨"
                             horizontalAlignment: Text.AlignHCenter
                             verticalAlignment: Text.AlignVCenter
-                            color: '#ffffff'
+                            color: colors.foreground
                             font.pixelSize: 20
                             font.bold: true
                         }
@@ -286,7 +286,7 @@ Rectangle {
                             text: "--"
                             horizontalAlignment: Text.AlignHCenter
                             verticalAlignment: Text.AlignVCenter
-                            color: '#ffffff'
+                            color: colors.foreground
                             font.pixelSize: 14
                             font.bold: true
                         }
@@ -299,7 +299,7 @@ Rectangle {
                         text: '--:--'
                         horizontalAlignment: Text.AlignHCenter
                         verticalAlignment: Text.AlignVCenter
-                        color: '#ffffff'
+                        color: colors.foreground
                         font.pixelSize: 12
                         font.bold: true
                     }
@@ -312,7 +312,7 @@ Rectangle {
                 Layout.maximumHeight: 20
                 Layout.maximumWidth: 1
                 Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
-                color: colors.separatorColor
+                color: colors.moduleSeparatorColor
             }
             Rectangle {
                 Layout.fillWidth: true
@@ -334,7 +334,7 @@ Rectangle {
                             text: "󰖨"
                             horizontalAlignment: Text.AlignHCenter
                             verticalAlignment: Text.AlignVCenter
-                            color: '#ffffff'
+                            color: colors.foreground
                             font.pixelSize: 20
                             font.bold: true
                         }
@@ -347,7 +347,7 @@ Rectangle {
                             text: "--"
                             horizontalAlignment: Text.AlignHCenter
                             verticalAlignment: Text.AlignVCenter
-                            color: '#ffffff'
+                            color: colors.foreground
                             font.pixelSize: 14
                             font.bold: true
                         }
@@ -360,7 +360,7 @@ Rectangle {
                         text: '--:--'
                         horizontalAlignment: Text.AlignHCenter
                         verticalAlignment: Text.AlignVCenter
-                        color: '#ffffff'
+                        color: colors.foreground
                         font.pixelSize: 12
                         font.bold: true
                     }
@@ -394,15 +394,15 @@ Rectangle {
         currentWhetherIcon.text = weatherRect.weatherIcons[weatherRect.codes[weatherRect.currentHour]] + ""
         currentWhetherTemp.text = weatherRect.temps[weatherRect.currentHour] + "° \n" + weatherRect.currentHour + ":00"
 
-        currentWhetherIcon1.text = weatherRect.weatherIcons[weatherRect.codes[is24(weatherRect.currentHour + 1)]] + ""
-        currentWhetherIcon2.text = weatherRect.weatherIcons[weatherRect.codes[is24(weatherRect.currentHour + 2)]] + ""
-        currentWhetherIcon3.text = weatherRect.weatherIcons[weatherRect.codes[is24(weatherRect.currentHour + 3)]] + ""
-        currentWhetherIcon4.text = weatherRect.weatherIcons[weatherRect.codes[is24(weatherRect.currentHour + 4)]] + ""
+        currentWhetherIcon1.text = weatherRect.weatherIcons[weatherRect.codes[weatherRect.currentHour + 1]] + ""
+        currentWhetherIcon2.text = weatherRect.weatherIcons[weatherRect.codes[weatherRect.currentHour + 2]] + ""
+        currentWhetherIcon3.text = weatherRect.weatherIcons[weatherRect.codes[weatherRect.currentHour + 3]] + ""
+        currentWhetherIcon4.text = weatherRect.weatherIcons[weatherRect.codes[weatherRect.currentHour + 4]] + ""
 
-        currentWhetherTemp1.text = weatherRect.temps[is24(weatherRect.currentHour + 1)] + "°"
-        currentWhetherTemp2.text = weatherRect.temps[is24(weatherRect.currentHour + 2)] + "°"
-        currentWhetherTemp3.text = weatherRect.temps[is24(weatherRect.currentHour + 3)] + "°"
-        currentWhetherTemp4.text = weatherRect.temps[is24(weatherRect.currentHour + 4)] + "°"
+        currentWhetherTemp1.text = weatherRect.temps[weatherRect.currentHour + 1] + "°"
+        currentWhetherTemp2.text = weatherRect.temps[weatherRect.currentHour + 2] + "°"
+        currentWhetherTemp3.text = weatherRect.temps[weatherRect.currentHour + 3] + "°"
+        currentWhetherTemp4.text = weatherRect.temps[weatherRect.currentHour + 4] + "°"
 
         currentWhetherTime1.text = is24(weatherRect.currentHour + 1) + ":00"
         currentWhetherTime2.text = is24(weatherRect.currentHour + 2) + ":00"

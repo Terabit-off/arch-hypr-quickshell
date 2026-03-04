@@ -38,6 +38,14 @@ PanelWindow {
     
     color: 'transparent'
 
+    MouseArea {
+        anchors.fill: parent
+        onClicked: {
+            mediaCenter.visible = true
+            
+        }
+    }
+
     Rectangle {
         anchors.fill: parent
         color: colors.barBackground
@@ -210,6 +218,22 @@ PanelWindow {
                         }
                     }
 
+                    // Bluetooth
+                    Rectangle {
+                        color: 'transparent'
+                        Layout.fillWidth: true
+                        Layout.minimumWidth: 25
+                        Layout.maximumWidth: 50
+                        height: 24
+                        Text {
+                            id: bluetoothText
+                            anchors.centerIn: parent
+                            text: "󰂯" // 󰂲
+                            font.pixelSize: 17
+                            color: colors.foreground
+                        }
+                    }
+
                     //Wi-Fi
                     Rectangle {
                         color: 'transparent'
@@ -245,7 +269,7 @@ PanelWindow {
                         }
                     }
 
-                    //Яркость
+                    //Brightness
                     Rectangle {
                         id: brightness
                         color: 'transparent'
@@ -395,13 +419,7 @@ PanelWindow {
                             font.bold: true
                             font.pixelSize: 16
                         }
-                        MouseArea {
-                            anchors.fill: parent
-                            onClicked: {
-                                mediaCenter.visible = true
-                                
-                            }
-                        }
+                        
                         
                     }
 
